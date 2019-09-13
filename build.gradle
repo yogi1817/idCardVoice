@@ -1,0 +1,60 @@
+buildscript {    // Configuration for building
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.7.RELEASE'
+    classpath 'com.google.cloud.tools:appengine-gradle-plugin:2.1.0'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.11"
+  }
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.1.7.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.7.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'java'                              // standard Java tasks                              // standard Web Archive plugin
+apply plugin: 'com.google.cloud.tools.appengine'  // App Engine tasks
+apply plugin: 'war'  
+
+group = 'com.hmhs.voice'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "Greenwich.SR2")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web' //exclude module: "spring-boot-starter-tomcat"
+	implementation 'org.springframework.cloud:spring-cloud-gcp-starter'
+	//providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+	compile 'com.google.appengine:appengine-api-1.0-sdk:+'
+	compile 'com.google.cloud:google-cloud-logging:1.85.0'
+	compile 'com.google.actions:actions-on-google:1.+'
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.11'
+    compile 'org.springframework.kafka:spring-kafka:2.2.8.RELEASE'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+appengine {
+  deploy {   // deploy configuration
+    stopPreviousVersion = true  // default - stop the current version
+    promote = true              // default - & make this the current version
+    projectId = 'idcard-using-boot-ostkjg'
+    appengine.deploy.version = 1
+  }
+}

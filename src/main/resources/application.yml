@@ -1,0 +1,25 @@
+server:
+  port: 9292
+  ssl:
+    key-store: classpath:keystore.jks
+    key-store-password: computer
+    keyStoreType: JKS
+    key-alias: tomcat
+    key-store-provider: SUN
+spring:
+  kafka:
+    consumer:
+       bootstrap-servers: localhost:9092
+       group-id: group_id
+       auto-offset-reset: earliest
+       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+       bootstrap-servers: localhost:9092
+       key-serializer: org.apache.kafka.common.serialization.StringSerializer
+       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+# Tell Spring Security (if used) to require requests over HTTPS
+#security:
+ #  require-ssl: true
+   
