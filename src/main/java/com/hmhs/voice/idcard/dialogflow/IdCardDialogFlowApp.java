@@ -15,19 +15,30 @@ import com.hmhs.voice.idcard.kafka.KafkaProducer;
 @Service
 public class IdCardDialogFlowApp extends DialogflowApp {
 
-	@Autowired
-	private KafkaProducer producer;
-	
+	@Autowired private KafkaProducer producer;
+	 
 	private static final Logger logger = Logger.getLogger(IdCardDialogFlowApp.class.getName());
 	
 	@ForIntent("id_card_request")
+	public ActionResponse idCardRequest(ActionRequest request) {
+		logger.info("idCardRequest intent start.");
+		
+		ResponseBuilder responseBuilder = getResponseBuilder(request);
+		responseBuilder.add("We received your Id card request and we are processing it. Thanks for getting in touch.");
+		logger.info("idCardRequest intent end.");
+		
+		producer.sendMessage("id card request received");
+		return responseBuilder.build();
+	}
+	
+	@ForIntent("Default Welcome Intent")
 	public ActionResponse welcome(ActionRequest request) {
 		logger.info("doctor_name intent start.");
+		
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
-		//QueryResult qr = request.getWebhookRequest().getQueryResult();
-		responseBuilder.add("We received your Id card request and we are processing it. Thanks for getting in touch.");
+		responseBuilder.add("Welcome to Identity Card service, you can say \"Send me my identity card\" to request a new identity card at your address");
 		logger.info("doctor_name intent end.");
-		producer.sendMessage("id card request received");
+		
 		return responseBuilder.build();
 	}
 }

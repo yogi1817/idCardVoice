@@ -8,12 +8,12 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.hmhs.voice.idcard")
-public class IdcardVoiceApplication {
+public class IdCardVoiceApplication {
 
-	private static final Logger logger = Logger.getLogger(IdcardVoiceApplication.class.getName());
+	private static final Logger logger = Logger.getLogger(IdCardVoiceApplication.class.getName());
 	
 	public static void main(String[] args) {
 		logger.info("invoking IdcardVoiceApplication");
-		SpringApplication.run(IdcardVoiceApplication.class, args);
+		SpringApplication.run(IdCardVoiceApplication.class, args);
 	}
 }

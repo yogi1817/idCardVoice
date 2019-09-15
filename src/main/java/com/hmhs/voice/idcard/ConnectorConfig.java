@@ -33,7 +33,7 @@ public class ConnectorConfig {
     connector.setScheme("http");
     connector.setPort(8080);
     connector.setSecure(false);
-    connector.setRedirectPort(8443);
+    connector.setRedirectPort(9292);
     return connector;
   }
 }
