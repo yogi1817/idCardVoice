@@ -12,7 +12,6 @@ public class IdCardVoiceApplication {
 
 	private static final Logger logger = Logger.getLogger(IdCardVoiceApplication.class.getName());
 	
-	
 	public static void main(String[] args) {
 		logger.info("invoking IdcardVoiceApplication");
 		SpringApplication.run(IdCardVoiceApplication.class, args);
