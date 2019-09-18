@@ -1,5 +1,6 @@
 package com.hmhs.voice.idcard.dialogflow;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,13 @@ public class IdCardDialogFlowApp extends DialogflowApp {
 	 
 	private static final Logger logger = Logger.getLogger(IdCardDialogFlowApp.class.getName());
 	
+	private String umi = null;
+	@Override
+	public ActionRequest createRequest(String inputJson, Map<?, ?> headers) {
+		setUmi((String) headers.get("umi"));
+		return super.createRequest(inputJson, headers);
+	}
+
 	@ForIntent("id_card_request")
 	public ActionResponse idCardRequest(ActionRequest request) {
 		logger.info("idCardRequest intent start.");
@@ -27,7 +35,7 @@ public class IdCardDialogFlowApp extends DialogflowApp {
 		responseBuilder.add("We received your Id card request and we are processing it. Thanks for getting in touch.");
 		logger.info("idCardRequest intent end.");
 		
-		producer.sendMessage("id card request received");
+		producer.sendMessage("id card request received "+getUmi());
 		return responseBuilder.build();
 	}
 	
@@ -40,5 +48,13 @@ public class IdCardDialogFlowApp extends DialogflowApp {
 		logger.info("doctor_name intent end.");
 		
 		return responseBuilder.build();
+	}
+
+	public String getUmi() {
+		return umi;
+	}
+
+	public void setUmi(String umi) {
+		this.umi = umi;
 	}
 }

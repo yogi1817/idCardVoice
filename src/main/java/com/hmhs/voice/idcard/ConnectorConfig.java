@@ -1,4 +1,4 @@
-package com.hmhs.voice.idcard;
+/*package com.hmhs.voice.idcard;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
@@ -36,4 +36,4 @@ public class ConnectorConfig {
     connector.setRedirectPort(9292);
     return connector;
   }
-}
+}*/
